@@ -15,30 +15,33 @@
  */
 class Solution 
 {
+    Integer leftMost;
+    
+    public int height(TreeNode root)
+    {
+        if(root == null)
+            return 0;
+        return 1 + Math.max(height(root.left), height(root.right));
+    }
+    
     public int findBottomLeftValue(TreeNode root) 
     {
-        Queue<TreeNode> q = new LinkedList<>();
-        if(root != null)
-            q.add(root);
-        TreeNode left = root;
-        while(!q.isEmpty())
+        int h = height(root);
+        levelOrder(root, h);
+        return leftMost;
+    }
+    
+    public void levelOrder(TreeNode root, int level)
+    {
+        if(root == null || level < 1)
+            return;
+        if(level == 1)
         {
-            int size = q.size();
-            boolean isLeftMost = true;
-            while(size-->0)
-            {
-                TreeNode node = q.poll();
-                if(isLeftMost)
-                {
-                    left = node;
-                    isLeftMost = false;
-                }
-                if(node.left != null)
-                    q.add(node.left);
-                if(node.right != null)
-                    q.add(node.right);
-            }
+            if(leftMost == null)
+                leftMost = root.val;
+            return;
         }
-        return left.val;
+        levelOrder(root.left, level-1);
+        levelOrder(root.right, level-1);
     }
 }
