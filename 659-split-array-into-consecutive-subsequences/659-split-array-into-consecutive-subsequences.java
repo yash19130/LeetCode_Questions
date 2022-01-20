@@ -1,37 +1,40 @@
 class Solution 
 {
+    static class pair
+    {
+        int last, size;
+        pair(int last, int size)
+        {
+            this.last = last;
+            this.size = size;
+        }
+    }
+    
     public boolean isPossible(int[] a) 
     {
         int n = a.length;
-        List<List<Integer>> list = new ArrayList<>();
-        List<Integer> temp = new ArrayList<>();
-        temp.add(a[0]);
-        list.add(temp);
+        List<pair> list = new ArrayList<>();
+        list.add(new pair(a[0], 1));
         for(int i=1; i<n; i++)
         {
             boolean isAdded = false;
             int size = list.size();
             for(int j=size-1; j>=0; j--)
             {
-                List<Integer> ls = list.get(j);
-                int last = ls.get(ls.size()-1);
-                if(last + 1 == a[i])
+                if(list.get(j).last + 1 == a[i])
                 {
-                    ls.add(a[i]);
+                    list.get(j).last++;
+                    list.get(j).size++;
                     isAdded = true;
                     break;
                 }
             }
             if(!isAdded)
-            {
-                List<Integer> ls = new ArrayList<>();
-                ls.add(a[i]);
-                list.add(ls);
-            }
+                list.add(new pair(a[i], 1));
         }
-        for(List<Integer> ls: list)
+        for(pair p: list)
         {
-            if(ls.size() < 3)
+            if(p.size < 3)
                 return false;
         }
         return true;
