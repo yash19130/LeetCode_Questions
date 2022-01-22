@@ -24,28 +24,16 @@ class Solution
     { 
         int n = s.length();
         HashSet<String> hs = new HashSet<>();
-        hs.add(s.charAt(0) + "");
-        hs.add(s.charAt(n-1) + "");
-        for(int k=1; k<n-1; k++)
+        for(int k=0; k<n; k++)
         {
             int i = k-1, j = k+1;
             while(i >= 0 && j < n && s.charAt(i) == s.charAt(j))
-            {
-                hs.add(s.substring(i, j+1));
-                i--;
-                j++;
-            }
-            hs.add(s.charAt(k) + "");
-        }
-        for(int k=0; k<n-1; k++)
-        {
-            int i = k, j = k+1;
+                hs.add(s.substring(i--, ++j));
+            i = k;
+            j = k+1;
             while(i >= 0 && j < n && s.charAt(i) == s.charAt(j))
-            {
-                hs.add(s.substring(i, j+1));
-                i--;
-                j++;
-            }
+                hs.add(s.substring(i--, ++j));
+            hs.add(s.charAt(k) + "");
         }
         return hs.size();
     }
