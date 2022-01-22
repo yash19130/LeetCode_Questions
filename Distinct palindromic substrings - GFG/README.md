@@ -1,5 +1,5 @@
 # Distinct palindromic substrings
-## Hard 
+##  Hard 
 <div class="problem-statement">
                 <p></p><p><span style="font-size:18px">Given a string str of lowercase ASCII characters, Count the number of&nbsp;distinct continuous palindromic sub-strings which are present in the string str.</span></p>
 
