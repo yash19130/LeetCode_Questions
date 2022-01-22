@@ -5,21 +5,45 @@ class Solution
         boolean neg = false;
         StringBuilder str = new StringBuilder(x+"");
         StringBuilder rev = new StringBuilder();
-        for(int i=str.length()-1; i>=0; i--)
-            rev.append(str.charAt(i));
+        int end = 0;
         if(str.charAt(0) == '-')
         {
             neg = true;
-            rev.deleteCharAt(rev.length()-1);
+            end = 1;
+            rev.append('-');
         }
+        for(int i=str.length()-1; i>=end; i--)
+            rev.append(str.charAt(i));
         if(neg)
         {
-            if(-Long.parseLong(rev.toString()) < Integer.MIN_VALUE)
+            StringBuilder min = new StringBuilder(Integer.MIN_VALUE + "");
+            if(rev.length() > min.length())
                 return 0;
-            return -Integer.parseInt(rev.toString());
+            if(rev.length() == min.length())
+            {
+                for(int i=0; i<rev.length(); i++)
+                {
+                    if(rev.charAt(i) > min.charAt(i))
+                        return 0;
+                    if(rev.charAt(i) < min.charAt(i))
+                        break;
+                }
+            }
+            return Integer.parseInt(rev.toString());
         }
-        if(Long.parseLong(rev.toString()) > Integer.MAX_VALUE)
+        StringBuilder max = new StringBuilder(Integer.MAX_VALUE + "");
+        if(rev.length() > max.length())
             return 0;
+        if(rev.length() == max.length())
+        {
+            for(int i=0; i<rev.length(); i++)
+            {
+                if(rev.charAt(i) > max.charAt(i))
+                    return 0;
+                if(rev.charAt(i) < max.charAt(i))
+                    break;
+            }
+        }
         return Integer.parseInt(rev.toString());
     }
 }
