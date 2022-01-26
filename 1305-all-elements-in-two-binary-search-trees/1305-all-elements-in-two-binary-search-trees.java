@@ -15,33 +15,34 @@
  */
 class Solution 
 {
-    public void inorder(TreeNode root, Queue<Integer> q)
+    public void inorder(TreeNode root, List<Integer> arr)
     {
         if(root != null)
         {
-            inorder(root.left, q);
-            q.add(root.val);
-            inorder(root.right, q);
+            inorder(root.left, arr);
+            arr.add(root.val);
+            inorder(root.right, arr);
         }
     }
     
     public List<Integer> getAllElements(TreeNode root1, TreeNode root2) 
     {
-        Queue<Integer> q1 = new LinkedList<>(), q2 = new LinkedList<>();
+        List<Integer> l1 = new LinkedList<>(), l2 = new LinkedList<>();
         List<Integer> list = new ArrayList<>();
-        inorder(root1, q1);
-        inorder(root2, q2);
-        while(!q1.isEmpty() && !q2.isEmpty())
+        inorder(root1, l1);
+        inorder(root2, l2);
+        int i = 0, n = l1.size(), j = 0, m = l2.size();
+        while(i < n && j < m)
         {
-            if(q1.peek() < q2.peek())
-                list.add(q1.poll());
+            if(l1.get(i) < l2.get(j))
+                list.add(l1.get(i++));
             else
-                list.add(q2.poll());
+                list.add(l2.get(j++));
         }
-        while(!q1.isEmpty())
-            list.add(q1.poll());
-        while(!q2.isEmpty())
-            list.add(q2.poll());
+        while(i < n)
+            list.add(l1.get(i++));
+        while(j < m)
+            list.add(l2.get(j++));
         return list;
     }
 }
