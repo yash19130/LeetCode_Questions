@@ -1,43 +1,29 @@
 // { Driver Code Starts
-import java.io.*;
 import java.util.*;
-
-
-class GFG {
-	public static void main (String[] args) {
-		
-		//taking input using Scanner class
-		Scanner sc = new Scanner(System.in);
-		
-		//taking total testcases
-		int t = sc.nextInt();
-		
-		while(t-- > 0){
-		    
-		    //taking total number of stairs
-		    int m = sc.nextInt();
-		    
-		    //creating an object of class DynamicProgramming
-		    Solution obj = new Solution();
-		    
-		    //calling method of class countWays()
-		    //of class DynamicProgramming
-		    System.out.println(obj.countWays(m));
-		    
-		}
-		
-	}
+import java.lang.*;
+import java.io.*;
+class GFG
+{
+    public static void main(String[] args) throws IOException
+    {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        int T = Integer.parseInt(br.readLine().trim());
+        while(T-->0)
+        {
+            int n = Integer.parseInt(br.readLine().trim());
+            Solution ob = new Solution();
+            long ans = ob.nthStair(n);
+            System.out.println(ans);            
+        }
+    }
 }
 // } Driver Code Ends
 
 
-
 class Solution
 {
-    //Function to count number of ways to reach the nth stair 
-    //when order does not matter.
-    Long countWays(int m)
+    public long nthStair(int n)
     {
-        return m/2 + 1L;
-    }    
+        return n/2 + 1L;
+    }
 }
