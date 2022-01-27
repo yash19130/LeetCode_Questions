@@ -170,7 +170,7 @@ class Solution
         while(!q.isEmpty())
         {
             pair p = q.poll();
-            time = Math.max(time, p.dist);
+            time = p.dist;
             Node connected[] = {hp.get(p.node), p.node.left, p.node.right};
             for(Node node: connected)
             {
