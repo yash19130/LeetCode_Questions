@@ -44,10 +44,10 @@ class Solution
                 if(vis[i])
                     continue;
                 vis[i] = true;
-                int j = i;
-                if(hp.containsKey(j))
-                    j = hp.get(j);
-                q.add(new int[]{j, moves+1});
+                if(hp.containsKey(i))
+                    q.add(new int[]{hp.get(i), moves+1});
+                else
+                    q.add(new int[]{i, moves+1});
             }
         }
         return -1;
