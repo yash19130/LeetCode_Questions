@@ -9,24 +9,26 @@ class Solution
         int[] cnt1 = new int[26];
         for(char c: p.toCharArray())
             cnt1[c - 'a']++;
-        for(int i=0; i<=n-m; i++)
+        int[] cnt2 = new int[26];
+        for(int i=0; i<m; i++)
+            cnt2[s.charAt(i) - 'a']++;
+        if(isAnagram(cnt1, cnt2))
+            anagrams.add(0);
+        for(int i=m; i<n; i++)
         {
-            int[] cnt2 = new int[26];
-            String cur = s.substring(i, i+m);
-            for(char c: cur.toCharArray())
-                cnt2[c - 'a']++;
-            boolean isAnagram = true;
-            for(int j=0; j<26; j++)
-            {
-                if(cnt1[j] != cnt2[j])
-                {
-                    isAnagram = false;
-                    break;
-                }
-            }
-            if(isAnagram)
-                anagrams.add(i);
+            cnt2[s.charAt(i) - 'a']++;
+            cnt2[s.charAt(i-m) - 'a']--;
+            if(isAnagram(cnt1, cnt2))
+                anagrams.add(i-m+1);
         }
         return anagrams;
+    }
+    
+    public boolean isAnagram(int[] cnt1, int[] cnt2)
+    {
+        for(int i=0; i<26; i++)
+            if(cnt1[i] != cnt2[i])
+                return false;
+        return true;
     }
 }
