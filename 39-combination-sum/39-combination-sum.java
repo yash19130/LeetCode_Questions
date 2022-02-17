@@ -14,10 +14,7 @@ class Solution
         if(sum > target)
             return;
         if(sum == target)
-        {
-            i++;
             ans.add(new ArrayList<>(l));
-        }
         for(int j=i; j<a.length; j++)
         {
             l.add(a[j]);
