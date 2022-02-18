@@ -30,7 +30,7 @@ class Solution
         if(beg > end)
             return null;
         int mid = (beg + end)/2;
-        int pos = 1;
+        int pos = beg;
         ListNode middle = head;
         while(pos != mid)
         {
@@ -39,7 +39,7 @@ class Solution
         }
         TreeNode root = new TreeNode(middle.val);
         root.left = toBST(head, beg, mid-1);
-        root.right = toBST(head, mid+1, end);
+        root.right = toBST(middle.next, mid+1, end);
         return root;
     }
     
