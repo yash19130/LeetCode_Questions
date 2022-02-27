@@ -44,9 +44,9 @@ class Solution
                 minX = Math.min(minX, x);
                 maxX = Math.max(maxX, x);
                 if(node.left != null)
-                    q.add(new pair(node.left, 2*x));
+                    q.add(new pair(node.left, 2*x+1));
                 if(node.right != null)
-                    q.add(new pair(node.right, 2*x+1));
+                    q.add(new pair(node.right, 2*x+2));
             }
             width = Math.max(width, maxX - minX + 1);
         }
