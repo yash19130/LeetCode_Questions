@@ -15,49 +15,31 @@
  */
 class Solution 
 {
-    public TreeNode deleteNode(TreeNode root, int X) 
+    public TreeNode deleteNode(TreeNode root, int key)
     {
-        if(root == null){
+        if(root == null)
             return null;
-        }
-        else if(X < root.val){
-            root.left = deleteNode(root.left, X);
-        }
-        else if(X > root.val){
-            root.right = deleteNode(root.right, X);
-        }
-        else{
-            //Case 1 : Leaf node
-            if(root.left == null && root.right == null){
-                root = null;
-            }
-            //Case 2 : One child
-            else if(root.left == null){
-                TreeNode temp = root;
-                root = root.right;
-                temp = null;
-            }
-            else if(root.right == null){
-                TreeNode temp = root;
-                root = root.left;
-                temp = null;
-            }
-            //Case 3 : 2 child
-            else{
-                //Finding minimum Node in right subtree
-                TreeNode temp = findMin(root.right);
-                root.val = temp.val;
-                //Deleting the duplicate node from the BT
-                root.right = deleteNode(root.right, temp.val);
-            }
+        if(root.val > key)
+            root.left = deleteNode(root.left, key);
+        else if(root.val < key)
+            root.right = deleteNode(root.right, key);
+        else
+        {
+            if(root.left == null)
+                return root.right;
+            if(root.right == null)
+                return root.left;
+            TreeNode min = minNode(root.right);
+            root.val = min.val;
+            root.right = deleteNode(root.right, min.val);
         }
         return root;
     }
     
-    TreeNode findMin(TreeNode root)
+    public TreeNode minNode(TreeNode root)
     {
-        if(root==null || root.left==null)
+        if(root.left == null)
             return root;
-        return findMin(root.left);
+        return minNode(root.left);
     }
 }
