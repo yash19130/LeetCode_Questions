@@ -14,14 +14,14 @@ class MyHashSet
     
     public MyHashSet() 
     {
-        this.hp = new Node[10000];    
+        this.hp = new Node[100000];    
     }
     
     public void add(int key) 
     {
         if(contains(key))
             return;
-        int pos = key % 10000;
+        int pos = key % 100000;
         if(hp[pos] == null)
             hp[pos] = new Node(key);
         else
@@ -34,7 +34,7 @@ class MyHashSet
     
     public void remove(int key) 
     {
-        int pos = key % 10000;
+        int pos = key % 100000;
         Node temp = hp[pos], prev = null;
         while(temp != null)
         {
@@ -61,7 +61,7 @@ class MyHashSet
     
     public boolean contains(int key) 
     {
-        int pos = key % 10000;
+        int pos = key % 100000;
         Node temp = hp[pos];
         while(temp != null)
         {
