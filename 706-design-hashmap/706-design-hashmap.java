@@ -12,15 +12,17 @@ class MyHashMap
     }
     
     public Node[] hp;
+    public int hash;
     
     public MyHashMap() 
     {
-        this.hp = new Node[10000];
+        this.hash = 50000;
+        this.hp = new Node[hash];
     }
     
     public void put(int key, int value) 
     {
-        int pos = key % 10000;
+        int pos = key % hash;
         if(hp[pos] == null)
         {
             hp[pos] = new Node(key, value);
@@ -42,7 +44,7 @@ class MyHashMap
     
     public int get(int key) 
     {
-        int pos = key % 10000;
+        int pos = key % hash;
         Node temp = hp[pos];
         while(temp != null)
         {
@@ -55,7 +57,7 @@ class MyHashMap
     
     public void remove(int key) 
     {
-        int pos = key % 10000;
+        int pos = key % hash;
         Node temp = hp[pos], prev = null;
         while(temp != null)
         {
