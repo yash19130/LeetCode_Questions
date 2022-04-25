@@ -3,20 +3,22 @@
 
 class PeekingIterator implements Iterator<Integer> 
 {
-    public Deque<Integer> dq;
+    public List<Integer> list;
+    public int i;
     
 	public PeekingIterator(Iterator<Integer> iterator) 
     {
 	    // initialize any member here.
-        this.dq = new ArrayDeque<>();
+        this.list = new ArrayList<>();
+        this.i = 0;
         while(iterator.hasNext())
-            dq.addLast(iterator.next());
+            list.add(iterator.next());
 	}
 	
     // Returns the next element in the iteration without advancing the iterator.
 	public Integer peek() 
     {
-        return dq.peekFirst();
+        return list.get(i);
 	}
 	
 	// hasNext() and next() should behave the same as in the Iterator interface.
@@ -24,12 +26,12 @@ class PeekingIterator implements Iterator<Integer>
 	@Override
 	public Integer next() 
     {
-	    return dq.removeFirst();
+	    return list.get(i++);
 	}
 	
 	@Override
 	public boolean hasNext() 
     {
-	    return dq.size() > 0;    
+	    return i < list.size();    
 	}
 }
