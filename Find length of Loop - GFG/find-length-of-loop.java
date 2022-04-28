@@ -74,24 +74,29 @@ class Solution
 {
     static int countNodesinLoop(Node head)
     {
-        Node temp = head;
-        HashSet<Node> hs = new HashSet<>();
-        while(temp!=null)
+        Node tor = head, hare = head;
+        while(hare != null && hare.next != null)
         {
-            if(hs.contains(temp))
-            {
-                Node node = temp;
-                int c = 0;
-                do
-                {
-                    node = node.next;
-                    c++;
-                }while(node!=temp);
-                return c;
-            }
-            hs.add(temp);
-            temp = temp.next;
+            tor = tor.next;
+            hare = hare.next.next;
+            if(tor == hare)
+                break;
         }
-        return 0;
+        if(hare == null || hare.next == null)
+            return 0;
+        tor = head;
+        while(tor != hare)
+        {
+            tor = tor.next;
+            hare = hare.next;
+        }
+        int size = 0;
+        do
+        {
+            size++;
+            tor = tor.next;
+        }while(tor != hare);
+        return size;
     }
 }
+
