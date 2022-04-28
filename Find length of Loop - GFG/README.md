@@ -1,5 +1,5 @@
 # Find length of Loop
-##  Easy 
+## Easy 
 <div class="problem-statement">
                 <p></p><p><span style="font-size:18px">Given a linked list of size <strong>N</strong>. The task is to complete the function&nbsp;<strong>countNodesinLoop()&nbsp;</strong>that checks whether a given Linked List contains a&nbsp;<strong>loop or not&nbsp;</strong>and if the&nbsp;<strong>loop </strong>is present then<strong> return the count of nodes</strong> in a loop or else <strong>return 0. C&nbsp;</strong>is the position of the node to which the last node is connected. If it is 0 then no loop.</span></p>
 
