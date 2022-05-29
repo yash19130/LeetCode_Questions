@@ -12,7 +12,10 @@ class Solution
                 cnt[c - 'a']++;
             StringBuilder sb = new StringBuilder();
             for(int i=0; i<26; i++)
-                sb.append(cnt[i] + " ");
+            {
+                sb.append(cnt[i]);
+                sb.append(' ');
+            }
             hp.put(w, sb.toString());
         }
         for(int i=0; i<n; i++)
