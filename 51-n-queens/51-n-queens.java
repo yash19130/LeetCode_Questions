@@ -4,47 +4,44 @@ class Solution
     
     public List<List<String>> solveNQueens(int n) 
     {
-        List<String> emptyBoard = new ArrayList<>();
-        for(int i=0; i<n; i++)
-        {
-            StringBuilder sb = new StringBuilder();
-            for(int j=0; j<n; j++)
-                sb.append('.');
-            emptyBoard.add(sb.toString());
-        }
         for(int j=0; j<n; j++)
-            NQueens(0, j, n, new ArrayList<>(emptyBoard));
+            NQueens(0, j, n, new boolean[n][n]);
         return ans;
     }
     
-    public void NQueens(int i, int j, int n, List<String> board)
+    public void NQueens(int i, int j, int n, boolean[][] isQueen)
     {
         if(i >= n)
             return;
-        for(int row=0; row<n; row++)
-            if(board.get(row).charAt(j) == 'Q')
+        for(int row = 0; row < i; row++)
+            if(isQueen[row][j])
                 return;
         for(int row = i, col = j; row >= 0 && col >= 0; row--, col--)
-            if(board.get(row).charAt(col) == 'Q')
+            if(isQueen[row][col])
                 return;
         for(int row = i, col = j; row >= 0 && col < n; row--, col++)
-            if(board.get(row).charAt(col) == 'Q')
+            if(isQueen[row][col])
                 return;
-        StringBuilder sb = new StringBuilder();
-        StringBuilder empty = new StringBuilder();
-        for(int col=0; col<n; col++)
+        isQueen[i][j] = true;
+        if(i == n - 1)
         {
-            if(col == j)
-                sb.append('Q');
-            else
-                sb.append('.');
-            empty.append('.');
+            List<String> arrangement = new ArrayList<>();
+            for(int row = 0; row < n; row++)
+            {
+                StringBuilder sb = new StringBuilder();
+                for(int col = 0; col < n; col++)
+                {
+                    if(isQueen[row][col])
+                        sb.append('Q');
+                    else
+                        sb.append('.');
+                }
+                arrangement.add(sb.toString());
+            }
+            ans.add(arrangement);
         }
-        board.set(i, sb.toString());
-        for(int col=0; col<n; col++)
-            NQueens(i+1, col, n, new ArrayList<>(board));
-        if(i == n-1)
-            ans.add(new ArrayList<>(board));
-        board.set(i, empty.toString());
+        for(int col = 0; col < n; col++)
+            NQueens(i + 1, col, n, isQueen);
+        isQueen[i][j] = false;
     }
 }
