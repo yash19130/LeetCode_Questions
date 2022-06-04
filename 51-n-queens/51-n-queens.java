@@ -24,19 +24,10 @@ class Solution
         for(int row=0; row<n; row++)
             if(board.get(row).charAt(j) == 'Q')
                 return;
-        for(int col=0; col<n; col++)
-            if(board.get(i).charAt(col) == 'Q')
-                return;
         for(int row = i, col = j; row >= 0 && col >= 0; row--, col--)
             if(board.get(row).charAt(col) == 'Q')
                 return;
         for(int row = i, col = j; row >= 0 && col < n; row--, col++)
-            if(board.get(row).charAt(col) == 'Q')
-                return;
-        for(int row = i, col = j; row < n && col >= 0; row++, col--)
-            if(board.get(row).charAt(col) == 'Q')
-                return;
-        for(int row = i, col = j; row < n && col < n; row++, col++)
             if(board.get(row).charAt(col) == 'Q')
                 return;
         StringBuilder sb = new StringBuilder();
