@@ -9,10 +9,8 @@ class Solution
         for(int i=n-2; i>=0; i--)
         {
             int m = triangle.get(i).size();
-            int[] cur = new int[m];
             for(int j=0; j<m; j++)
-                cur[j] = Math.min(dp[j+1], dp[j]) + triangle.get(i).get(j);
-            dp = cur;
+                dp[j] = Math.min(dp[j+1], dp[j]) + triangle.get(i).get(j);
         }
         return dp[0];
     }
