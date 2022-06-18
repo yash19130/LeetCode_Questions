@@ -1,44 +1,42 @@
 class WordFilter 
 {
     public String[] words;
-    public Map<String, List<Integer>> hp;
+    public Map<String, List<Integer>> prefix;
     
     public WordFilter(String[] words) 
     {
         this.words = words;
-        this.hp = new HashMap<>();
+        this.prefix = new HashMap<>();
         int n = words.length;
         for(int i=0; i<n; i++)
         {
             int m = words[i].length();
             for(int j=0; j<m; j++)
-            {
-                add(words[i].substring(0, j + 1), i);
-            }
+                addPrefix(words[i].substring(0, j + 1), i);
         }
     }
     
-    public void add(String s, int i)
+    public void addPrefix(String s, int i)
     {
-        if(hp.containsKey(s))
-            hp.get(s).add(i);
+        if(prefix.containsKey(s))
+            prefix.get(s).add(i);
         else
         {
             List<Integer> list = new ArrayList<>();
             list.add(i);
-            hp.put(s, list);
+            prefix.put(s, list);
         }
     }
     
-    public int f(String prefix, String suffix) 
+    public int f(String p, String s) 
     {
-        if(!hp.containsKey(prefix))
+        if(!prefix.containsKey(p))
             return -1;
-        List<Integer> list = hp.get(prefix);
+        List<Integer> list = prefix.get(p);
         int n = list.size();
         for(int i=n-1; i>=0; i--)
         {
-            if(words[list.get(i)].endsWith(suffix))
+            if(words[list.get(i)].endsWith(s))
                 return list.get(i);
         }
         return -1;
