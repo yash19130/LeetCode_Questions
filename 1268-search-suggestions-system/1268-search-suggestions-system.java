@@ -1,5 +1,23 @@
 class Solution 
 {
+    public int search(String[] products, String s)
+    {
+        int beg = 0, end = products.length - 1;
+        int pos = -1;
+        while(beg <= end)
+        {
+            int mid = beg + (end - beg) / 2;
+            if(s.compareTo(products[mid]) <= 0)
+            {
+                pos = mid;
+                end = mid - 1;
+            }
+            else
+                beg = mid + 1;
+        }
+        return pos;
+    }
+    
     public List<List<String>> suggestedProducts(String[] products, String searchWord) 
     {
         List<List<String>> ans = new ArrayList<>();
@@ -9,13 +27,14 @@ class Solution
         {
             String s = searchWord.substring(0, i);
             List<String> list = new ArrayList<>();
-            for(String word: products)
+            int pos = search(products, s);
+            if(pos != -1)
             {
-                if(word.indexOf(s) == 0)
+                int m = Math.min(products.length, pos + 3);
+                for(int j=pos; j<m; j++)
                 {
-                    list.add(word);
-                    if(list.size() == 3)
-                        break;
+                    if(products[j].indexOf(s) == 0)
+                        list.add(products[j]);
                 }
             }
             ans.add(list);
