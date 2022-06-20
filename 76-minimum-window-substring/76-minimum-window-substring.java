@@ -3,27 +3,32 @@ class Solution
     public String minWindow(String s, String t) 
     {
         int n = s.length(), m = t.length();
-        Map<Character, Integer> hp1 = new HashMap<>();
-        Map<Character, Integer> hp2 = new HashMap<>();
+        int[] c1 = new int[123];
+        int[] c2 = new int[123];
+        int k = 0;
         for(int i=0; i<m; i++)
-            hp1.put(t.charAt(i), hp1.getOrDefault(t.charAt(i), 0) + 1);
-        int k = hp1.size();
+        {
+            char c = t.charAt(i);
+            if(c1[c] == 0)
+                k++;
+            c1[c]++;
+        }
         int i = 0, j = 0;
         Set<Character> hs = new HashSet<>();
         String minWindow = "";
         while(j < n)
         {
             char c = s.charAt(j);
-            hp2.put(c, hp2.getOrDefault(c, 0) + 1);
-            if(hp1.containsKey(c) && hp1.get(c) <= hp2.get(c))
+            c2[c]++;
+            if(c1[c] == c2[c])
                 hs.add(c);
             while(hs.size() == k)
             {
                 if(minWindow.isEmpty() || j - i + 1 < minWindow.length())
                     minWindow = s.substring(i, j + 1);
                 c = s.charAt(i++);
-                hp2.put(c, hp2.get(c) - 1);
-                if(hp1.containsKey(c) && hp2.get(c) < hp1.get(c))
+                c2[c]--;
+                if(c2[c] < c1[c])
                     hs.remove(c);
             }
             j++;
