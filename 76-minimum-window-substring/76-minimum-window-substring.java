@@ -14,22 +14,22 @@ class Solution
             c1[c]++;
         }
         int i = 0, j = 0;
-        Set<Character> hs = new HashSet<>();
+        int windowSize = 0;
         String minWindow = "";
         while(j < n)
         {
             char c = s.charAt(j);
             c2[c]++;
             if(c1[c] == c2[c])
-                hs.add(c);
-            while(hs.size() == k)
+                windowSize++;
+            while(windowSize == k)
             {
                 if(minWindow.isEmpty() || j - i + 1 < minWindow.length())
                     minWindow = s.substring(i, j + 1);
                 c = s.charAt(i++);
                 c2[c]--;
                 if(c2[c] < c1[c])
-                    hs.remove(c);
+                    windowSize--;
             }
             j++;
         }
