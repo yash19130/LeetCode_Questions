@@ -3,16 +3,28 @@ class Solution
     public int furthestBuilding(int[] h, int bricks, int ladders) 
     {
         int n = h.length;
-        List<int[]> bricksNeeded = new ArrayList<>();
+        Queue<int[]> bricksNeeded = new PriorityQueue<>((a, b) -> (a[0] - b[0]));
         for(int i=1; i<n; i++)
         {
             if(h[i] > h[i - 1])
-                bricksNeeded.add(new int[]{h[i] - h[i - 1], i});
+            {
+                if(bricksNeeded.size() < ladders)
+                {
+                    bricksNeeded.add(new int[]{h[i] - h[i - 1], i});
+                }
+                else if(!bricksNeeded.isEmpty() && bricksNeeded.peek()[0] < h[i] - h[i - 1])
+                {
+                    bricksNeeded.poll();
+                    bricksNeeded.add(new int[]{h[i] - h[i - 1], i});
+                }
+            }
         }
-        Collections.sort(bricksNeeded, (a, b) -> (b[0] - a[0]));
         TreeSet<Integer> hs = new TreeSet<>();
-        for(int i = 0; i < Math.min(bricksNeeded.size(), ladders); i++)
-            hs.add(bricksNeeded.get(i)[1]);
+        while(ladders > 0 && bricksNeeded.size() > 0)
+        {
+            hs.add(bricksNeeded.poll()[1]);
+            ladders--;
+        }
         int i = 1;
         Queue<Integer> pq = new PriorityQueue<>((a, b) -> (b - a));
         while(i < n)
