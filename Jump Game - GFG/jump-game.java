@@ -29,21 +29,15 @@ class Solution
     static int canReach(int[] a, int n) 
     {
         int max = 0;
-        if(a[0]==0)
-            return 0;
         for(int i=0; i<n; i++)
         {
-            if(a[i]>0)
-                max = Math.max(max, i+a[i]);
-            if(max>=n-1)
-                break;
-            else
-            {
-                if(max<=i)
-                    return 0;
-            }
+            max = Math.max(max, i+a[i]);
+            if(max >= n - 1)
+                return 1;
+            if(max <= i)
+                return 0;
         }
-        if(max>=n-1)
+        if(max >= n-1)
             return 1;
         return 0;
     }
