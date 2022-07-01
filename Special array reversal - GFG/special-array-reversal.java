@@ -20,20 +20,29 @@ class GFG
 
 class Solution
 {
-    public String reverse(String str)
+    public String reverse(String s)
     {
-        Stack<Character> s = new Stack<>();
-        int n = str.length();
-        char[] ch = str.toCharArray();
-        for(int i=0; i<n; i++)
+        int i = 0, j = s.length() - 1;
+        char[] ch = s.toCharArray();
+        while(i < j)
         {
-            if(Character.isAlphabetic(ch[i]))
-                s.push(ch[i]);
-        }
-        for(int i=0; i<n; i++)
-        {
-            if(Character.isAlphabetic(ch[i]))
-                ch[i] = s.pop();
+            if(Character.isAlphabetic(ch[i]) && Character.isAlphabetic(ch[j]))
+            {
+                char c = ch[i];
+                ch[i] = ch[j];
+                ch[j] = c;
+                i++;
+                j--;
+            }
+            else if(!Character.isAlphabetic(ch[i]))
+                i++;
+            else if(!Character.isAlphabetic(ch[j]))
+                j--;
+            else
+            {
+                i++;
+                j--;
+            }
         }
         return String.valueOf(ch);
     }
