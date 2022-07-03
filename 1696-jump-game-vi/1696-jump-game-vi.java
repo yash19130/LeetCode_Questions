@@ -3,26 +3,20 @@ class Solution
     public int maxResult(int[] a, int k) 
     {
         int n = a.length;
-        Queue<int[]> pq = new PriorityQueue<>((x, y) -> (y[1] - x[1]));
+        TreeMap<Integer, Integer> hp = new TreeMap<>();
         int[] dp = new int[n];
         dp[0] = a[0];
-        pq.add(new int[]{0, dp[0]});
+        hp.put(dp[0], 1);
         for(int i=1; i<n; i++)
         {
-            Integer cur = null;
-            while(cur == null)
+            dp[i] = a[i] + hp.lastKey();
+            if(i - k >= 0)
             {
-                int[] p = pq.peek();
-                if(p[0] < i - k)
-                    pq.poll();
-                else
-                {
-                    cur = p[1];
-                    break;
-                }
+                hp.put(dp[i - k], hp.get(dp[i - k]) - 1);
+                if(hp.get(dp[i - k]) == 0)
+                    hp.remove(dp[i - k]);
             }
-            dp[i] = a[i] + cur;
-            pq.add(new int[]{i, dp[i]});
+            hp.put(dp[i], hp.getOrDefault(dp[i], 0) + 1);
         }
         return dp[n - 1];
     }
