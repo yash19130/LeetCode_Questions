@@ -3,17 +3,19 @@ class Solution
     public int maxDistToClosest(int[] a) 
     {
         int n = a.length;
-        TreeSet<Integer> set = new TreeSet<>();
+        Queue<Integer> q = new LinkedList<>();
         for(int i=0; i<n; i++)
             if(a[i] == 1)
-                set.add(i);
-        int ans = 0;
+                q.add(i);
+        Integer ans = 0, lo = null;
         for(int i=0; i<n; i++)
         {
             if(a[i] == 1)
+            {
+                lo = q.poll();
                 continue;
-            Integer lo = set.lower(i);
-            Integer hi = set.higher(i);
+            }
+            Integer hi = q.isEmpty() ? null : q.peek();
             if(lo == null)
                 ans = Math.max(ans, hi - i);
             else if(hi == null)
