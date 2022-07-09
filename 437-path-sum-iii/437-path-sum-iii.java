@@ -19,22 +19,22 @@ class Solution
     
     public int pathSum(TreeNode root, int targetSum) 
     {
-        if(root != null)
-        {
-            pathSum(root.left, targetSum);
-            solve(root, 0, targetSum);
-            pathSum(root.right, targetSum);
-        }
+        Map<Integer, Integer> hp = new HashMap<>();
+        hp.put(0, 1);
+        solve(root, 0, targetSum, hp);
         return ans;
     }
     
-    public void solve(TreeNode root, int cur, int sum)
+    public void solve(TreeNode root, int sum, int target, Map<Integer, Integer> hp)
     {
         if(root == null)
             return;
-        if(cur + root.val == sum)
-            ans++;
-        solve(root.left, cur + root.val, sum);
-        solve(root.right, cur + root.val, sum);
+        sum += root.val;
+        ans += hp.getOrDefault(sum - target, 0);
+        hp.put(sum, hp.getOrDefault(sum, 0) + 1);
+        solve(root.left, sum, target, hp);
+        solve(root.right, sum, target, hp);
+        hp.put(sum, hp.getOrDefault(sum, 0) - 1);
+        sum -= root.val;
     }
 }
