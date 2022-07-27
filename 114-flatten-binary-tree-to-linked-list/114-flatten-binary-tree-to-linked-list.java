@@ -19,6 +19,11 @@ class Solution
     {
         if(root == null)
             return;
+        if(root.left == null)
+        {
+            flatten(root.right);
+            return;
+        }
         TreeNode r = root.right;
         root.right = root.left;
         TreeNode temp = root.left;
@@ -27,8 +32,6 @@ class Solution
             temp = temp.right;
         if(temp != null)
             temp.right = r;
-        else
-            root.right = r;
         flatten(root.right);
     }
 }
