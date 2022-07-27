@@ -30,8 +30,7 @@ class Solution
         root.left = null;
         while(temp != null && temp.right != null)
             temp = temp.right;
-        if(temp != null)
-            temp.right = r;
+        temp.right = r;
         flatten(root.right);
     }
 }
