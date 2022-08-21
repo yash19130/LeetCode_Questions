@@ -14,7 +14,7 @@ class Solution
         ans.add(new ArrayList<>(l));
         for(int j=i; j<a.length; j++)
         {
-            if(j > i && a[j] == a[j - 1])
+            if(j != i && a[j] == a[j - 1])
                 continue;
             l.add(a[j]);
             backtrack(j+1, a, l);
