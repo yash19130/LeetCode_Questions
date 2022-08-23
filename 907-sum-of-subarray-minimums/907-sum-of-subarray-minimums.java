@@ -10,9 +10,9 @@ class Solution
             while(!s.isEmpty() && arr[s.peek()] > arr[i])
                 s.pop();
             if(s.isEmpty())
-                nextMin[i] = n - i - 1;
+                nextMin[i] = n - i;
             else
-                nextMin[i] = s.peek() - i - 1;
+                nextMin[i] = s.peek() - i;
             s.push(i);
         }
         return nextMin;
@@ -28,9 +28,9 @@ class Solution
             while(!s.isEmpty() && arr[s.peek()] >= arr[i])
                 s.pop();
             if(s.isEmpty())
-                prevMin[i] = i;
+                prevMin[i] = i + 1;
             else
-                prevMin[i] = i - s.peek() - 1;
+                prevMin[i] = i - s.peek();
             s.push(i);
         }
         return prevMin;
@@ -45,7 +45,7 @@ class Solution
         int mod = (int) 1e9 + 7;
         for(int i=0; i<n; i++)
         {
-            sum += ((long) arr[i] * (long) (nextMin[i]  + 1) * (long) (prevMin[i] + 1)) % mod;
+            sum += ((long) arr[i] * (long) nextMin[i] * (long) prevMin[i]) % mod;
             sum %= mod;
         }
         return sum;
