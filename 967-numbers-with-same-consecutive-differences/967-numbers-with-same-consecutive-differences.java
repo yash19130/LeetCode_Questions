@@ -4,22 +4,20 @@ class Solution
     {
         List<Integer> list = new ArrayList<>();
         for(int i=1; i<=9; i++)
-            solve(i + "", n, k, list);
+            solve(i, n, k, i, list);
         return list.stream().mapToInt(i->i).toArray();
     }
     
-    public void solve(String s, int n, int k, List<Integer> list)
+    public void solve(int num, int n, int k, int lastDigit, List<Integer> list)
     {
-        if(s.length() == n)
+        if(n == 1)
         {
-            int num = Integer.parseInt(new String(s));
             list.add(num);
             return;
         }
-        char last = s.charAt(s.length() - 1);
-        if(last + k <= '9')
-            solve(s + (char) (last + k), n, k, list);
-        if(last - k >= '0' && k != 0)
-            solve(s + (char) (last - k), n, k, list);
+        if(lastDigit + k <= 9)
+            solve((num * 10) + (lastDigit + k), n - 1, k, lastDigit + k, list);
+        if(lastDigit - k >= 0 && k != 0)
+            solve((num * 10) + (lastDigit - k), n - 1, k, lastDigit - k, list);
     }
 }
