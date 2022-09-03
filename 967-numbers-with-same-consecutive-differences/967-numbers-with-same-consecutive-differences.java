@@ -13,14 +13,13 @@ class Solution
         if(s.length() == n)
         {
             int num = Integer.parseInt(new String(s));
-            if(!list.contains(num))
-                list.add(num);
+            list.add(num);
             return;
         }
         char last = s.charAt(s.length() - 1);
         if(last + k <= '9')
             solve(s + (char) (last + k), n, k, list);
-        if(last - k >= '0')
+        if(last - k >= '0' && k != 0)
             solve(s + (char) (last - k), n, k, list);
     }
 }
