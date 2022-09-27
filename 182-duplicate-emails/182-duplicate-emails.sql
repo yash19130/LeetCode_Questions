@@ -1,4 +1,4 @@
-select distinct(A.email) as "Email"
-from Person A, Person B
-where A.email = b.email
-and A.id != B.id;
+select email as "Email" 
+from Person
+group by email
+having count(email) > 1;
